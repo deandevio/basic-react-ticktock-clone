@@ -10,15 +10,16 @@ export default function App() {
   useEffect(() => {
     fetch(API_URL)
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => setVideos(data));
   }, []);
 
   return (
     <div className="app">
       <div className="container">
-        {/* TODO: Loop over the API_URL data and render Video component */}
-        {/* TODO: Make sure to assign the correct URL for each video */}
-        <Video url="https://github.com/codedamn-classrooms/tiktok-react-material/raw/main/v1.mp4" />
+        {videos &&
+          videos.map((video) => {
+            return <Video key={video.url} channel={video.channel} description={video.description} song={video.song} url={video.url} />;
+          })}
       </div>
     </div>
   );
