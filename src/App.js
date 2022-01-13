@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Video from "./Video";
 import "./App.css";
 
@@ -9,17 +9,27 @@ export default function App() {
 
   useEffect(() => {
     fetch(API_URL)
-      .then((res) => res.json())
+      .then((data) => data.json())
       .then((data) => setVideos(data));
   }, []);
 
   return (
     <div className="app">
       <div className="container">
-        {videos &&
-          videos.map((video) => {
-            return <Video key={video.url} channel={video.channel} description={video.description} song={video.song} url={video.url} />;
-          })}
+        {videos.map((video) => {
+          return (
+            <Video
+              key={video.url}
+              channel={video.channel}
+              description={video.description}
+              song={video.song}
+              likes={video.likes}
+              shares={video.shares}
+              messages={video.messages}
+              url={video.url}
+            />
+          );
+        })}
       </div>
     </div>
   );
